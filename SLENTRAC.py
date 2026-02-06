@@ -59,7 +59,13 @@ def scan_reddit_public():
         url = f"https://www.reddit.com/r/{sub}/hot.json?limit=25"
         
         try:
-            response = requests.get(url, headers=headers)
+            # This 'headers' block is your fake ID card
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+    }
+
+    # We pass the headers to the request
+    response = requests.get(url, headers=headers)
             
             if response.status_code != 200:
                 print(f"Failed to scan r/{sub} (Status: {response.status_code})")
@@ -208,6 +214,7 @@ plt.tight_layout()
 
 # Show the plot
 plt.show()
+
 
 
 
