@@ -59,9 +59,6 @@ def scan_reddit_public():
         url = f"https://www.reddit.com/r/{sub}/hot.json?limit=25"
         
         try:
-     headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36'
-        }
         response = requests.get(url, headers=headers)
             
             if response.status_code != 200:
@@ -211,6 +208,7 @@ plt.tight_layout()
 
 # Show the plot
 plt.show()
+
 
 
 
