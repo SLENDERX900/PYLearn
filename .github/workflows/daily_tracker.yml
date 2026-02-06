@@ -27,7 +27,7 @@ jobs:
       # Step 3: Install the libraries from your requirements.txt
       - name: Install libraries
         run: |
-          pip install -r requirements.txt
+          pip install pandas requests nltk
           
       # Step 4: Run your script
       - name: Run Tracker
