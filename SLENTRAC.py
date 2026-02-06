@@ -52,18 +52,28 @@ def scan_reddit_public():
     print(f"--- Scanning Reddit (Public JSON Mode): {SUBREDDITS} ---")
     data = []
     
-    # Fake browser header to avoid being blocked
-    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'}
+   # Fake browser header to avoid being blocked
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+    }
 
     for sub in SUBREDDITS:
         url = f"https://www.reddit.com/r/{sub}/hot.json?limit=25"
-        
+
         try:
-        response = requests.get(url, headers=headers)
-            
+            # Send the request with the fake headers
+            response = requests.get(url, headers=headers)
+
+            # Check if the request was successful
             if response.status_code != 200:
                 print(f"Failed to scan r/{sub} (Status: {response.status_code})")
                 continue
+            
+            # (The rest of your code for processing the data goes here...)
+            
+        except Exception as e:
+            print(f"Error scanning r/{sub}: {e}")
+            continue
                 
             posts = response.json()['data']['children']
             
@@ -208,6 +218,7 @@ plt.tight_layout()
 
 # Show the plot
 plt.show()
+
 
 
 
