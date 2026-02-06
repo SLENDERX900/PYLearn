@@ -24,7 +24,7 @@ jobs:
         with:
           python-version: '3.9'
 
-      # Step 3: Install the libraries from your requirements.txt
+      # Step 3: Install the libraries
       - name: Install libraries
         run: |
           pip install pandas requests nltk
