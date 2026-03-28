@@ -11,10 +11,6 @@ A beginner-friendly AI chatbot platform that teaches you Python while you build 
 - Paste code and get a line-by-line explanation.
 - Get AI + Python project ideas matched to your level.
 - Turn app ideas into a realistic 7-day build plan.
-- Use a split-screen dashboard layout:
-  - Tutor Chat + Code Explainer side by side
-  - Project Ideas + Build Planner side by side
-- Save history in a local memory database (`mentor_memory.db`) and browse old chats/ideas later.
 
 ## Built for your setup (GTX 1650 / 4GB VRAM)
 
@@ -93,7 +89,6 @@ If either fails, confirm:
 - `mentor_engine.py` — LLM provider logic and tutor functions
 - `.env.example` — local-first settings
 - `requirements.txt` — dependencies
-- `mentor_memory.db` — created automatically after first run; stores saved tutor/code/project/plan history
 
 
 ## Dashboard smoke test (run multiple times)
