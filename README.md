@@ -11,9 +11,6 @@ A beginner-friendly AI chatbot platform that teaches you Python while you build 
 - Paste code and get a line-by-line explanation.
 - Get AI + Python project ideas matched to your level.
 - Turn app ideas into a realistic 7-day build plan.
-- Use a split-screen dashboard layout:
-  - Tutor Chat + Code Explainer side by side
-  - Project Ideas + Build Planner side by side
 
 ## Built for your setup (GTX 1650 / 4GB VRAM)
 

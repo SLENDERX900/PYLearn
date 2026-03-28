@@ -105,18 +105,18 @@ with st.sidebar:
             st.error(str(exc))
 
 
-left_learning, right_learning = st.columns(2, gap="large")
+tab1, tab2, tab3, tab4 = st.tabs(
+    ["Tutor Chat", "Code Explainer", "Project Ideas", "Build Planner"]
+)
 
-with left_learning:
-    st.subheader("Tutor Chat")
-    st.caption("Ask your Python tutor")
+with tab1:
+    st.subheader("Ask your Python tutor")
     question = st.text_area(
         "What do you want to learn?",
         placeholder="Example: Teach me Python loops like I'm 2 years old.",
         height=120,
-        key="tutor_question",
     )
-    if st.button("Get Tutor Answer", type="primary", key="get_tutor_answer"):
+    if st.button("Get Tutor Answer", type="primary"):
         if not question.strip():
             st.warning("Please type a question first.")
         else:
@@ -134,16 +134,14 @@ with left_learning:
             st.markdown(f"**Q{idx}:** {q}")
             st.markdown(a)
 
-with right_learning:
-    st.subheader("Code Explainer")
-    st.caption("Paste code to understand it")
+with tab2:
+    st.subheader("Paste code to understand it")
     code_input = st.text_area(
         "Python code",
         placeholder="Paste your Python code here",
         height=240,
-        key="code_input",
     )
-    if st.button("Explain This Code", key="explain_code"):
+    if st.button("Explain This Code"):
         if not code_input.strip():
             st.warning("Please paste code first.")
         else:
@@ -154,19 +152,13 @@ with right_learning:
             except MentorConnectionError as exc:
                 st.error(str(exc))
 
-st.divider()
-
-left_build, right_build = st.columns(2, gap="large")
-
-with left_build:
-    st.subheader("Project Ideas")
-    st.caption("Get AI + Python project ideas")
+with tab3:
+    st.subheader("Get AI + Python project ideas")
     interests = st.text_input(
         "What are you interested in?",
         placeholder="Example: health, productivity, finance, sports",
-        key="project_interests",
     )
-    if st.button("Suggest Projects", key="suggest_projects"):
+    if st.button("Suggest Projects"):
         if not interests.strip():
             st.warning("Please add at least one interest.")
         else:
@@ -177,17 +169,15 @@ with left_build:
             except MentorConnectionError as exc:
                 st.error(str(exc))
 
-with right_build:
-    st.subheader("Build Planner")
-    st.caption("Turn your app idea into a build plan")
+with tab4:
+    st.subheader("Turn your app idea into a build plan")
     app_idea = st.text_area(
         "Describe your app idea",
         placeholder="Example: I want a chatbot that teaches Python while I build mini tools.",
         height=140,
-        key="build_idea",
     )
 
-    if st.button("Create Build Plan", key="create_build_plan"):
+    if st.button("Create Build Plan"):
         if not app_idea.strip():
             st.warning("Please describe your app idea first.")
         else:
