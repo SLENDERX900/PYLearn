@@ -4,13 +4,23 @@ A beginner-friendly AI chatbot platform that teaches you Python while you build 
 
 ## What you can do
 
-- Ask Python questions and get explanations in your style:
-  - `Like I'm 2`
-  - `Beginner`
-  - `Upskill`
-- Paste code and get a line-by-line explanation.
-- Get AI + Python project ideas matched to your level.
-- Turn app ideas into a realistic 7-day build plan.
+The app is a **single dashboard** with a **main section** control at the top (same screen — no separate Streamlit “pages” in the sidebar):
+
+| Section | Purpose |
+|---------|---------|
+| **Learning Hub** | **Tutor chat** (left) + **interactive Python playground** (right): run code in a restricted sandbox, explain the full editor, or paste a snippet to explain or modify it in context |
+| **Project Builder** | **Idea & planner** (left): roadmap, numbered **project steps**, optional idea spark. **Codebase & assistant** (right): generated starter code and a **snippet assistant** |
+| **Memory** | **History database** — filter, refresh, or clear local history |
+
+Explanation styles:
+
+- `Like I'm 2`
+- `Beginner`
+- `Upskill`
+
+### Local history (SQLite)
+
+Successful tutor, sandbox, project, and assistant responses are saved to **`mentor_memory.db`** (created on first run). You can create **multiple project workspaces**; history and **RAG embeddings** are scoped per project. Pull **`nomic-embed-text`** (or set `OLLAMA_EMBED_MODEL`) for semantic retrieval.
 
 ## Built for your setup (GTX 1650 / 4GB VRAM)
 
@@ -25,6 +35,7 @@ Dependency baseline (verified on **March 28, 2026**):
 - `streamlit==1.55.0`
 - `openai==2.30.0`
 - `python-dotenv==1.2.2`
+- `numpy` (RAG similarity)
 
 If it feels slow, keep prompts short and ask for short responses.
 
@@ -50,6 +61,7 @@ In another terminal, pull a model:
 
 ```bash
 ollama pull llama3.2:3b
+ollama pull nomic-embed-text
 ```
 
 ### 3) Configure env
@@ -65,6 +77,8 @@ Default `.env` is already local-first (`LLM_PROVIDER=ollama`).
 ```bash
 streamlit run app.py
 ```
+
+Use the main section control to move between Learning Hub, Project Builder, and Memory.
 
 ---
 
@@ -85,10 +99,17 @@ If either fails, confirm:
 
 ## Files
 
-- `app.py` — Streamlit UI and user flows
+- `app.py` — Single dashboard (main section: Learning Hub, Project Builder, Memory)
+- `dashboard_tabs.py` — Tab content for Learning Hub and Project Builder
+- `shared_ui.py` — Shared sidebar, dependency panel, memory UI
+- `sandbox_run.py` — Restricted Python runner for the playground
+- `memory_db.py` — SQLite helpers for `mentor_memory.db`, projects, and RAG chunks
+- `rag_embed.py` — Embeddings and retrieval (Ollama OpenAI-compatible API)
+- `project_workspace.py` — Project switcher UI
 - `mentor_engine.py` — LLM provider logic and tutor functions
 - `.env.example` — local-first settings
 - `requirements.txt` — dependencies
+- `mentor_memory.db` — auto-created local history database (after first save)
 
 
 ## Dashboard smoke test (run multiple times)
