@@ -78,7 +78,7 @@ def render_learning_hub_tab(level: str, style: str) -> None:
             st.markdown(st.session_state.hub_tutor_out)
 
     with right:
-        st.markdown("Interactive playground")
+        st.markdown("### Interactive playground")
         st.caption("Write and run Python here. Explanations stay in Tutor chat (left).")
 
         if st.session_state.pop("hub_reset_editor_pending", False):
