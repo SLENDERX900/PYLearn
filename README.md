@@ -22,7 +22,7 @@ Explanation styles:
 
 Successful tutor, sandbox, project, and assistant responses are saved to **`mentor_memory.db`** (created on first run). You can create **multiple project workspaces**; history and **RAG embeddings** are scoped per project. Pull **`nomic-embed-text`** (or set `OLLAMA_EMBED_MODEL`) for semantic retrieval.
 
-## Built for your setup (GTX 1650 / 4GB VRAM)
+## Built for your setup 
 
 This app defaults to **local Ollama** so you can run without needing cloud inference for every request.
 
