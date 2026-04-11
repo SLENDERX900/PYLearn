@@ -2,6 +2,23 @@
 
 A beginner-friendly AI chatbot platform that teaches you Python while you build your own apps.
 
+---
+
+## About Python Tutor and Builder
+
+**Live Demo App:** [https://pythontutorandbuilder.streamlit.app/](https://pythontutorandbuilder.streamlit.app/)
+
+**Python Tutor and Builder** is an interactive web application designed to serve as both an educational guide and a lightweight development environment. Built with Streamlit, it allows users to easily write, test, and understand Python code. 
+
+While the live app offers a zero-setup cloud experience, this repository is heavily optimised for a **Local Ollama First** setup, allowing you to run powerful AI tutoring models directly on your hardware without relying on cloud inference.
+
+### 🚀 Key Features
+* **Interactive Code Building:** Write, test, and iterate on Python scripts within a clean, intuitive web interface.
+* **Guided Tutoring:** Geared toward helping users grasp fundamental Python concepts, troubleshoot errors, and refine their logic in real time.
+* **Privacy-First AI:** Run everything locally using Ollama, keeping your code and prompts entirely on your machine.
+
+---
+
 ## What you can do
 
 The app is a **single dashboard** with a **main section** control at the top (same screen — no separate Streamlit “pages” in the sidebar):
