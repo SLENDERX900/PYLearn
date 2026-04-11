@@ -6,16 +6,19 @@ A beginner-friendly AI chatbot platform that teaches you Python while you build 
 
 ## About Python Tutor and Builder
 
-**Live Demo App:** [https://pythontutorandbuilder.streamlit.app/](https://pythontutorandbuilder.streamlit.app/)
+**Live UI Preview:** [https://pythontutorandbuilder.streamlit.app/](https://pythontutorandbuilder.streamlit.app/)
 
-**Python Tutor and Builder** is an interactive web application designed to serve as both an educational guide and a lightweight development environment. Built with Streamlit, it allows users to easily write, test, and understand Python code. 
-
-While the live app offers a zero-setup cloud experience, this repository is heavily optimised for a **Local Ollama First** setup, allowing you to run powerful AI tutoring models directly on your hardware without relying on cloud inference.
+> **⚠️ Note on the Live Demo:** The link above is provided as a **Showcase of the User Interface and Design**. Because this platform is built for privacy and performance using **Local Ollama**, the AI tutoring features require a local backend to function. To experience the full power of the AI mentor, please follow the **Quick Start** guide below to run it on your own machine.
 
 ### 🚀 Key Features
-* **Interactive Code Building:** Write, test, and iterate on Python scripts within a clean, intuitive web interface.
-* **Guided Tutoring:** Geared toward helping users grasp fundamental Python concepts, troubleshoot errors, and refine their logic in real time.
-* **Privacy-First AI:** Run everything locally using Ollama, keeping your code and prompts entirely on your machine.
+
+* **Interactive UI Showcase:** Explore the dashboard layout, section controls, and the integrated Python playground interface.
+* **Privacy-First AI (Local-First):** Once set up locally, the app uses Ollama to provide real-time logic debugging and concept explanations without your data ever leaving your device.
+* **Zero-Cloud Dependency:** Designed for developers and students who want a powerful AI coding assistant that works entirely offline.
+
+### 🛠️ Make it Your Own
+
+This project is intended to be a **self-hosted personal mentor**. By running the app locally, you gain full control over the AI models used (e.g., `Llama 3.2`), your own persistent learning memory, and a secure sandbox for code execution.
 
 ---
 
