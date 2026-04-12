@@ -1,4 +1,4 @@
-# Python Mentor Platform
+# PYLearn : Python Mentor Platform
 
 A beginner-friendly AI chatbot platform that teaches you Python while you build your own apps.
 
