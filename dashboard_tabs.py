@@ -78,7 +78,7 @@ def render_learning_hub_tab(level: str, style: str) -> None:
             st.markdown(st.session_state.hub_tutor_out)
 
     with right:
-        st.markdown("Interactive playground")
+        st.markdown("### Interactive playground")
         st.caption("Write and run Python here. Explanations stay in Tutor chat (left).")
 
         if st.session_state.pop("hub_reset_editor_pending", False):
@@ -123,9 +123,6 @@ def render_learning_hub_tab(level: str, style: str) -> None:
 def render_project_builder_tab(level: str, style: str) -> None:
     project_id = render_project_switcher("pb")
     st.markdown("Plan on the left, generate and refine code on the right.")
-    st.caption(
-        "Use the project builder with a living plan and generated code. Pick a project workspace above."
-    )
 
     if "pb_code" not in st.session_state:
         st.session_state.pb_code = _DEFAULT_PB_CODE
@@ -136,6 +133,9 @@ def render_project_builder_tab(level: str, style: str) -> None:
 
     with left:
         st.markdown("### Idea & living plan")
+        st.caption(
+        "Ideate and build with a structured plan"
+    )
         idea = st.text_area(
             "Describe your project",
             placeholder='Example: "A simple fitness tracker with goals and streaks."',

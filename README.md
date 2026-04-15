@@ -1,6 +1,26 @@
-# Python Mentor Platform (Local Ollama First)
+# PYLearn : Python Mentor Platform
 
 A beginner-friendly AI chatbot platform that teaches you Python while you build your own apps.
+
+---
+
+## About Python Tutor and Builder
+
+**Live UI Preview:** [https://pythontutorandbuilder.streamlit.app/](https://pythontutorandbuilder.streamlit.app/)
+
+> **⚠️ Note on the Live Demo:** The link above is provided as a **Showcase of the User Interface and Design**. Because this platform is built for privacy and performance using **Local Ollama**, the AI tutoring features require a local backend to function. To experience the full power of the AI mentor, please follow the **Quick Start** guide below to run it on your own machine.
+
+### 🚀 Key Features
+
+* **Interactive UI Showcase:** Explore the dashboard layout, section controls, and the integrated Python playground interface.
+* **Privacy-First AI (Local-First):** Once set up locally, the app uses Ollama to provide real-time logic debugging and concept explanations without your data ever leaving your device.
+* **Zero-Cloud Dependency:** Designed for developers and students who want a powerful AI coding assistant that works entirely offline.
+
+### 🛠️ Make it Your Own
+
+This project is intended to be a **self-hosted personal mentor**. By running the app locally, you gain full control over the AI models used (e.g., `Llama 3.2`), your own persistent learning memory, and a secure sandbox for code execution.
+
+---
 
 ## What you can do
 
@@ -22,7 +42,7 @@ Explanation styles:
 
 Successful tutor, sandbox, project, and assistant responses are saved to **`mentor_memory.db`** (created on first run). You can create **multiple project workspaces**; history and **RAG embeddings** are scoped per project. Pull **`nomic-embed-text`** (or set `OLLAMA_EMBED_MODEL`) for semantic retrieval.
 
-## Built for your setup (GTX 1650 / 4GB VRAM)
+## Built for your setup 
 
 This app defaults to **local Ollama** so you can run without needing cloud inference for every request.
 
