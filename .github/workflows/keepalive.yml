@@ -2,21 +2,13 @@ name: Keep Streamlit Alive
 
 on:
   schedule:
-    - cron: '0 */12 * * *'  # Every 12 hours
+    - cron: '0 */6 * * *'  # Every 6 hours
   workflow_dispatch:  # Manual trigger option
 
 jobs:
   keepalive:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
-      - uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Make empty commit
+      - name: Ping Streamlit App
         run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git commit --allow-empty -m "Keep alive [skip ci]"
-          git push
+          curl -s -o /dev/null -w "%{http_code}" https://pythontutorandbuilder.streamlit.app/
