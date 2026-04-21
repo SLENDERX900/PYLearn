@@ -11,4 +11,12 @@ jobs:
     steps:
       - name: Ping Streamlit App
         run: |
-          curl -s -o /dev/null -w "%{http_code}" https://pythontutorandbuilder.streamlit.app/
+          echo "Pinging Streamlit app to keep it awake..."
+          response=$(curl -s -o /dev/null -w "%{http_code}" https://pythontutorandbuilder.streamlit.app/)
+          echo "HTTP Response Code: $response"
+          if [ "$response" -eq 200 ] || [ "$response" -eq 301 ] || [ "$response" -eq 302 ]; then
+            echo "✓ Successfully pinged Streamlit app"
+          else
+            echo "✗ Unexpected response code: $response"
+            exit 1
+          fi
