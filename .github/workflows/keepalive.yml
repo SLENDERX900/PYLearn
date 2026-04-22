@@ -20,8 +20,8 @@ jobs:
             response=$(curl -sL --max-time 30 -o /dev/null -w "%{http_code}" https://pythontutorandbuilder.streamlit.app/)
             echo "HTTP Response Code: $response"
             
-            # Accept 200, redirects, and 503 (Streamlit returns 503 when waking up)
-            if [ "$response" -eq 200 ] || [ "$response" -eq 301 ] || [ "$response" -eq 302 ] || [ "$response" -eq 503 ]; then
+            # Accept 200, redirects (301, 302, 303), and 503 (Streamlit returns 503 when waking up)
+            if [ "$response" -eq 200 ] || [ "$response" -eq 301 ] || [ "$response" -eq 302 ] || [ "$response" -eq 303 ] || [ "$response" -eq 503 ]; then
               echo "✓ Successfully pinged Streamlit app (code: $response)"
               exit 0
             fi
