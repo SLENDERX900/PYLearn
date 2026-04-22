@@ -14,14 +14,17 @@ jobs:
           echo "Pinging Streamlit app to keep it awake..."
           echo "Timestamp: $(date -u)"
           
-          # Try up to 3 times with follow redirects, max 30 seconds
+          # Try up to 3 times with follow redirects (max 10), max 30 seconds
           for i in 1 2 3; do
             echo "Attempt $i..."
-            response=$(curl -sL --max-time 30 -o /dev/null -w "%{http_code}" https://pythontutorandbuilder.streamlit.app/)
+            response=$(curl -sL --max-redirs 10 --max-time 30 -o /dev/null -w "%{http_code}" https://pythontutorandbuilder.streamlit.app/ || echo "curl_failed")
             echo "HTTP Response Code: $response"
             
+            # Handle curl failure
+            if [ "$response" = "curl_failed" ] || [ -z "$response" ]; then
+              echo "Curl failed, will retry..."
             # Accept 200, redirects (301, 302, 303), and 503 (Streamlit returns 503 when waking up)
-            if [ "$response" -eq 200 ] || [ "$response" -eq 301 ] || [ "$response" -eq 302 ] || [ "$response" -eq 303 ] || [ "$response" -eq 503 ]; then
+            elif [ "$response" -eq 200 ] || [ "$response" -eq 301 ] || [ "$response" -eq 302 ] || [ "$response" -eq 303 ] || [ "$response" -eq 503 ]; then
               echo "✓ Successfully pinged Streamlit app (code: $response)"
               exit 0
             fi
