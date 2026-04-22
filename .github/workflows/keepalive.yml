@@ -12,11 +12,25 @@ jobs:
       - name: Ping Streamlit App
         run: |
           echo "Pinging Streamlit app to keep it awake..."
-          response=$(curl -s -o /dev/null -w "%{http_code}" https://pythontutorandbuilder.streamlit.app/)
-          echo "HTTP Response Code: $response"
-          if [ "$response" -eq 200 ] || [ "$response" -eq 301 ] || [ "$response" -eq 302 ]; then
-            echo "✓ Successfully pinged Streamlit app"
-          else
-            echo "✗ Unexpected response code: $response"
-            exit 1
-          fi
+          echo "Timestamp: $(date -u)"
+          
+          # Try up to 3 times with follow redirects, max 30 seconds
+          for i in 1 2 3; do
+            echo "Attempt $i..."
+            response=$(curl -sL --max-time 30 -o /dev/null -w "%{http_code}" https://pythontutorandbuilder.streamlit.app/)
+            echo "HTTP Response Code: $response"
+            
+            # Accept 200, redirects, and 503 (Streamlit returns 503 when waking up)
+            if [ "$response" -eq 200 ] || [ "$response" -eq 301 ] || [ "$response" -eq 302 ] || [ "$response" -eq 503 ]; then
+              echo "✓ Successfully pinged Streamlit app (code: $response)"
+              exit 0
+            fi
+            
+            if [ $i -lt 3 ]; then
+              echo "Retrying in 5 seconds..."
+              sleep 5
+            fi
+          done
+          
+          echo "✗ All attempts failed. Last response code: $response"
+          exit 1
