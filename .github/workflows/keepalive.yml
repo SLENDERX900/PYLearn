@@ -17,21 +17,22 @@ jobs:
           # Try up to 3 times, don't follow redirects (just ping and accept redirect codes)
           for i in 1 2 3; do
             echo "Attempt $i..."
-            response=$(curl -s --max-time 30 -o /dev/null -w "%{http_code}" https://pythontutorandbuilder.streamlit.app/)
+            http_code=$(curl -s --max-time 30 -o /dev/null -w "%{http_code}" https://pythontutorandbuilder.streamlit.app/)
             curl_exit=$?
-            if [ $curl_exit -ne 0 ]; then
-              echo "Curl exit code: $curl_exit"
-              response="curl_failed_$curl_exit"
-            fi
-            echo "HTTP Response Code: $response"
+            echo "HTTP Response Code: $http_code"
+            echo "Curl exit code: $curl_exit"
             
-            # Handle curl failure (any response starting with curl_failed)
-            if [[ "$response" == curl_failed* ]] || [ -z "$response" ]; then
-              echo "Curl failed, will retry..."
-            # Accept 200, redirects (301, 302, 303), and 503 (Streamlit returns 503 when waking up)
-            elif [ "$response" -eq 200 ] || [ "$response" -eq 301 ] || [ "$response" -eq 302 ] || [ "$response" -eq 303 ] || [ "$response" -eq 503 ]; then
-              echo "✓ Successfully pinged Streamlit app (code: $response)"
-              exit 0
+            # If curl succeeded (exit 0) and we got a valid code
+            if [ $curl_exit -eq 0 ] && [ -n "$http_code" ]; then
+              # Accept 200, redirects (301, 302, 303), and 503 (Streamlit returns 503 when waking up)
+              if [ "$http_code" -eq 200 ] || [ "$http_code" -eq 301 ] || [ "$http_code" -eq 302 ] || [ "$http_code" -eq 303 ] || [ "$http_code" -eq 503 ]; then
+                echo "✓ Successfully pinged Streamlit app (code: $http_code)"
+                exit 0
+              else
+                echo "Unexpected HTTP code: $http_code"
+              fi
+            else
+              echo "Curl failed with exit code $curl_exit"
             fi
             
             if [ $i -lt 3 ]; then
@@ -40,5 +41,5 @@ jobs:
             fi
           done
           
-          echo "✗ All attempts failed. Last response code: $response"
+          echo "✗ All attempts failed. Last HTTP code: $http_code"
           exit 1
