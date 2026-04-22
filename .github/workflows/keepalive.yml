@@ -14,32 +14,25 @@ jobs:
           echo "Pinging Streamlit app to keep it awake..."
           echo "Timestamp: $(date -u)"
           
-          # Try up to 3 times, don't follow redirects (just ping and accept redirect codes)
           for i in 1 2 3; do
             echo "Attempt $i..."
-            http_code=$(curl -s --max-time 30 -o /dev/null -w "%{http_code}" https://pythontutorandbuilder.streamlit.app/)
-            curl_exit=$?
-            echo "HTTP Response Code: $http_code"
-            echo "Curl exit code: $curl_exit"
+            CODE=$(curl -s --max-time 30 -o /dev/null -w "%{http_code}" https://pythontutorandbuilder.streamlit.app/)
+            echo "Got response: $CODE"
             
-            # If curl succeeded (exit 0) and we got a valid code
-            if [ $curl_exit -eq 0 ] && [ -n "$http_code" ]; then
-              # Accept 200, redirects (301, 302, 303), and 503 (Streamlit returns 503 when waking up)
-              if [ "$http_code" -eq 200 ] || [ "$http_code" -eq 301 ] || [ "$http_code" -eq 302 ] || [ "$http_code" -eq 303 ] || [ "$http_code" -eq 503 ]; then
-                echo "✓ Successfully pinged Streamlit app (code: $http_code)"
+            case "$CODE" in
+              200|301|302|303|503)
+                echo "✓ Success with code $CODE"
                 exit 0
-              else
-                echo "Unexpected HTTP code: $http_code"
-              fi
-            else
-              echo "Curl failed with exit code $curl_exit"
-            fi
+                ;;
+              *)
+                echo "Unexpected code: $CODE, will retry..."
+                ;;
+            esac
             
             if [ $i -lt 3 ]; then
-              echo "Retrying in 5 seconds..."
               sleep 5
             fi
           done
           
-          echo "✗ All attempts failed. Last HTTP code: $http_code"
+          echo "✗ All attempts failed"
           exit 1
