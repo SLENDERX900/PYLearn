@@ -1,38 +1,35 @@
-name: Keep Streamlit Alive
+name: Streamlit Strict Wakeup
 
 on:
   schedule:
     - cron: '0 */6 * * *'  # Every 6 hours
-  workflow_dispatch:  # Manual trigger option
+  workflow_dispatch:      # Manual trigger
 
 jobs:
-  keepalive:
+  maintenance:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write     # Required for the empty commit
     steps:
-      - name: Ping Streamlit App
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          
+      - name: Install Selenium
+        run: pip install selenium webdriver-manager
+        
+      - name: Run Wake Script
+        env:
+          STREAMLIT_URL: ${{ secrets.STREAMLIT_URL }}
+        run: python wake_app.py
+        
+      - name: Push Heartbeat Commit
         run: |
-          echo "Pinging Streamlit app to keep it awake..."
-          echo "Timestamp: $(date -u)"
-          
-          for i in 1 2 3; do
-            echo "Attempt $i..."
-            CODE=$(curl -s --max-time 30 -o /dev/null -w "%{http_code}" https://pythontutorandbuilder.streamlit.app/)
-            echo "Got response: $CODE"
-            
-            case "$CODE" in
-              200|301|302|303|503)
-                echo "✓ Success with code $CODE"
-                exit 0
-                ;;
-              *)
-                echo "Unexpected code: $CODE, will retry..."
-                ;;
-            esac
-            
-            if [ $i -lt 3 ]; then
-              sleep 5
-            fi
-          done
-          
-          echo "✗ All attempts failed"
-          exit 1
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git commit --allow-empty -m "Keep-alive heart-beat: $(date)"
+          git push origin main --force
